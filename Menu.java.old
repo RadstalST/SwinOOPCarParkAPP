@@ -1,0 +1,149 @@
+
+/**
+ * Write a description of class Menu here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+// import component for J panel
+import java.awt.Component;
+
+import java.awt.GridLayout;
+import java.awt.Color;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Menu implements  ActionListener
+{
+    // instance variables - replace the example below with your own
+    private JButton listAllCarSlotBtn = new JButton("List All Car Slot");
+    private JButton parkCarBtn = new JButton("Park Car");
+    private JButton findCarBtn = new JButton("Find Car");
+    private JButton addCarBtn = new JButton("Add Car");
+    private JButton removeCarBtn = new JButton("Remove Car");
+    private JButton addCarSlotBtn = new JButton("Add Car Slot");
+    private JButton removeCarSlotBtn = new JButton("Remove Car Slot");
+    private JPanel panel;
+    private JFrame popup;
+    private int PADDING = 10;
+    private CarPark carPark;
+    private Display displayPanel;
+    public Menu(CarPark carPark,Display displayPanel)
+    {
+        this.carPark = carPark;
+        this.displayPanel = displayPanel;
+        // initialise instance variables
+        // verticalLayout 
+        panel = new JPanel();
+        
+        panel.setLayout( new GridLayout(0,1,PADDING,PADDING));
+        // set background color
+        panel.setBackground(Constants.primaryColor);
+        // set border
+
+
+        panel.add(listAllCarSlotBtn);
+        panel.add(parkCarBtn);
+        panel.add(findCarBtn);
+        panel.add(addCarBtn);
+        panel.add(removeCarBtn);
+        panel.add(addCarSlotBtn);
+        panel.add(removeCarSlotBtn);
+
+        for (Component c : panel.getComponents()) {
+            if (c instanceof JButton) {
+                JButton button = (JButton) c;
+                button.addActionListener(this);
+            }
+        }
+
+    } 
+    public void actionPerformed(ActionEvent e){
+        Component source = (Component) e.getSource();
+
+
+        if(source == listAllCarSlotBtn){
+            System.out.println("listAllCarSlotBtn");
+        }else if(source == parkCarBtn){
+            System.out.println("parkCarBtn");
+        }else if(source == findCarBtn){
+            System.out.println("findCarBtn");
+        }else if(source == addCarBtn){
+            System.out.println("addCarBtn");
+        }else if(source == removeCarBtn){
+            System.out.println("removeCarBtn");
+        }else if(source == addCarSlotBtn){
+            System.out.println("addCarSlotBtn");
+            // create frame for add car slot and text field
+            popup = new JFrame("Add Car Slot");
+            JPanel contentPane = new JPanel(new FlowLayout());
+            contentPane.setBackground(Constants.primaryColor);
+            popup.add(contentPane);
+            // create text field
+            JTextField textField = new JTextField();
+            JButton addBtn = new JButton("Add");
+            JButton cancleBtn = new JButton("Cancel");
+            textField.setPreferredSize(new Dimension(200, 24)); 
+            //set placeholder
+            textField.setText("A001");
+            contentPane.add(new JLabel("Car Slot ID ([A-Z]{1}[\\d]{3}):"));
+            contentPane.add(textField);
+            contentPane.add(addBtn);
+            contentPane.add(cancleBtn);
+            popup.pack();// resize frame
+            // popup.setSize(400, 400);
+            popup.setVisible(true);
+            // add action listener
+            addBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("addBtn");
+                    String carSlotId = textField.getText();
+                    if (carPark.addParkingSlot(new ParkingSlot(carSlotId))) {
+                        System.out.println("Parking slot added successfully");
+                        popup.setVisible(false);
+                        popup.dispose();// destroy frame and release resource
+                        // displayPanel.getPanel().add(displayPanel.getDisplayPanel());
+                        // displayPanel.getPanel().revalidate();
+                        displayPanel.refresh();
+                        
+
+                    } else {
+                        System.out.println("Failed to add parking slot");
+                    }
+                }}
+            );
+            cancleBtn.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("cancleBtn");
+                    popup.setVisible(false);
+                    popup.dispose();// destroy frame and release resource
+                }
+            });
+
+        }else if(source == removeCarSlotBtn){
+            System.out.println("removeCarSlotBtn");
+        }
+
+        
+
+    }
+    
+    public JPanel getPanel()
+    {
+        return panel;
+    }
+
+    
+}
+
+class AddCarFrame extends Jframe{
+    private String carID;
+    private String carMake;
+
+}
