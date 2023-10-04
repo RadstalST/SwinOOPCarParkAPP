@@ -25,10 +25,11 @@ import java.util.ArrayList;
 public class Application
 {   
     static final int PADDING = 10; // padding in px
-    private CarPark carPark = new CarPark();
-    private Display displayPanel = new Display(carPark);
-    private Menu menuPanel = new Menu(carPark,displayPanel);
     private ArrayList<Car> cars = new ArrayList<Car>();
+
+    private CarPark carPark = new CarPark();
+    private Display displayPanel = new Display(carPark,cars);
+    private Menu menuPanel = new Menu(carPark,displayPanel,cars);
     private Input inputPanel = new Input();
     public Application()
     {

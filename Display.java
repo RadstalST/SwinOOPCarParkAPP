@@ -20,7 +20,7 @@ import javax.swing.ScrollPaneLayout;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import java.util.ArrayList;
 public class Display
 {
     // instance variables - replace the example below with your own
@@ -28,11 +28,13 @@ public class Display
     private JButton removeCar;
     private JPanel panel = new JPanel();
     private int PADDING = 20;
+    private ArrayList<Car> cars;
     private CarPark carPark;
-    public Display(CarPark carPark)
+    public Display(CarPark carPark,ArrayList<Car> cars)
     {
         // initialise instance variables
         // verticalLayout 
+        this.cars = cars;
         this.carPark = carPark;
         this.refresh();
     } 
@@ -46,11 +48,11 @@ public class Display
         panel.revalidate();
         panel.setLayout(new GridLayout(0, 2, PADDING, PADDING));
 
-        JPanel visitorPanel = new JPanel();
-        visitorPanel.setLayout(new BoxLayout(visitorPanel, BoxLayout.Y_AXIS));
+        JPanel slotsPanel = new JPanel();
+        slotsPanel.setLayout(new BoxLayout(slotsPanel, BoxLayout.Y_AXIS));
 
-        JPanel staffPanel = new JPanel();
-        staffPanel.setLayout(new BoxLayout(staffPanel, BoxLayout.Y_AXIS));
+        JPanel carsPanel = new JPanel();
+        carsPanel.setLayout(new BoxLayout(carsPanel, BoxLayout.Y_AXIS));
 
         // displays all the slots in visitor panel with button
         for (int i = 0; i < carPark.getCapacity(); i++) {
@@ -59,20 +61,32 @@ public class Display
             slotPanel.setLayout(new FlowLayout());
 
             JLabel slotLabel = new JLabel(carPark.getSlot(i).getId());
-            JButton slotButton = new JButton("Add Car");
-            slotPanel.add(slotLabel);
-            slotPanel.add(slotButton);
-            visitorPanel.add(slotPanel);
+            JButton slotButton = new JButton("Park Car");
+            slotsPanel.add(slotLabel);
+            slotsPanel.add(slotButton);
+            slotsPanel.add(slotPanel);
             
         }
+        for(Car car : cars){
+            JPanel carPanel = new JPanel();
+            carPanel.setLayout(new FlowLayout());
+            JTextArea carText = new JTextArea(car.toString());
+            JButton carButton = new JButton("Delete Car");
+            carPanel.add(carText);
+            carPanel.add(carButton);
+            carsPanel.add(carPanel);
+        }
 
-        JScrollPane visitorScrollPane = new JScrollPane(visitorPanel);
-        JScrollPane staffScrollPane = new JScrollPane(staffPanel);
-        visitorScrollPane.setBorder(BorderFactory.createTitledBorder("Visitor"));
-        visitorScrollPane.setLayout(new ScrollPaneLayout());
-        visitorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        staffScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        panel.add(visitorScrollPane);
-        panel.add(staffScrollPane);
+
+        JScrollPane carParkingSlotsPane = new JScrollPane(slotsPanel);
+        JScrollPane carsPane = new JScrollPane(carsPanel);
+        carParkingSlotsPane.setBorder(BorderFactory.createTitledBorder("Car Parking Slots"));
+        carParkingSlotsPane.setLayout(new ScrollPaneLayout());
+        carParkingSlotsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        carsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        
+        panel.add(carParkingSlotsPane);
+        panel.add(carsPane);
     }
 }

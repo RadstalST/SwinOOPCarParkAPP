@@ -21,8 +21,8 @@ public class Car
         this.make = make;
         this.model = model;
         this.year = year;
-        if(!id.matches("[A-Za-z]{1}[0-9]{3}")){
-            throw new IllegalArgumentException("id is [A-Za-z]{1}[0-9]{3}");
+        if(!id.matches("[A-Za-z]{1}[0-9]{4}")){
+            throw new IllegalArgumentException("id is [A-Za-z]{1}[0-9]{4}");
         }
     }
 
@@ -60,6 +60,6 @@ public class Car
         return updateTimestamp;
     }
     public String toString(){
-        return "Car: " + id + " " + make + " " + model + " " + year + " " + createdTimestamp + " " + updateTimestamp;
+        return "Car: " + id + "\n" + make + " \n" + model + "\n" + year + " \n" + createdTimestamp + "\n" + updateTimestamp;
     }
 }
