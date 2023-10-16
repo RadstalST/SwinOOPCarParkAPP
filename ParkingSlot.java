@@ -1,6 +1,6 @@
 
 import java.util.Date;
-
+import java.util.ArrayList;
 public class ParkingSlot
 {
     private Car carInSlot;
@@ -40,5 +40,18 @@ public class ParkingSlot
     }
     public void updateTimestampHandler(){
         updateTimestamp = new Date();
+    }
+    public static ArrayList<ParkingSlot> generateParkingSlot(int n){
+        ArrayList<ParkingSlot> parkingSlots = new ArrayList<ParkingSlot>();
+        for(int i = 0; i < n; i++){
+            //random
+            parkingSlots.add(new ParkingSlot(
+                "%c%03d".formatted(
+                    (char)(Math.random() * 26 + 'A'),
+                    (int)(Math.random() * 1000)
+                )
+                ));
+        }
+        return parkingSlots;
     }
 }

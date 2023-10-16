@@ -30,6 +30,9 @@ public class CarPark
     public ParkingSlot getSlot(int i){
         return parkingSlots.get(i);
     }
+    public ArrayList <ParkingSlot> getSlots(){
+        return parkingSlots;
+    }
    
     public String toString(){
         ArrayList<String> parkingSlotIds = new ArrayList<String>();
@@ -38,5 +41,72 @@ public class CarPark
         }
         return String.join(",", parkingSlotIds);
     }
-   
+    public ArrayList<Car> getCarsById(String id){
+        ArrayList<Car> cars = new ArrayList<Car>();
+        for(ParkingSlot parkingSlot : parkingSlots){
+            Car car = parkingSlot.getCar();
+            if(car != null && car.getId().equals(id)){
+                cars.add(car);
+            }
+        }
+        return cars;
+    }
+    public ArrayList<Car> getCarsByMake(String make){
+        ArrayList<Car> cars = new ArrayList<Car>();
+        for(ParkingSlot parkingSlot : parkingSlots){
+            Car car = parkingSlot.getCar();
+            if(car != null && car.getMake().equals(make)){
+                cars.add(car);
+            }
+        }
+        return cars;
+    }
+    public ArrayList<Car> getCarsByModel(String model){
+        ArrayList<Car> cars = new ArrayList<Car>();
+        for(ParkingSlot parkingSlot : parkingSlots){
+            Car car = parkingSlot.getCar();
+            if(car != null && car.getModel().equals(model)){
+                cars.add(car);
+            }
+        }
+        return cars;
+    }
+    public ArrayList<Car> getCarsByYear(String year){
+        ArrayList<Car> cars = new ArrayList<Car>();
+        for(ParkingSlot parkingSlot : parkingSlots){
+            Car car = parkingSlot.getCar();
+            if(car != null && car.getYear() == year){
+                cars.add(car);
+            }
+        }
+        return cars;
+    }
+    public ArrayList<Car> getCarsFilter(String id, String make,String model,String year,boolean union){
+        ArrayList<Car> cars = new ArrayList<Car>();
+        ArrayList<Car> carsById = getCarsById(id);
+        ArrayList<Car> carsByMake = getCarsByMake(make);
+        ArrayList<Car> carsByModel = getCarsByModel(model);
+        ArrayList<Car> carsByYear = getCarsByYear(year);
+        if(union){
+            cars.addAll(carsByMake);
+            cars.addAll(carsByModel);
+            cars.addAll(carsByYear);
+        }else{
+            for(Car car : carsByMake){
+                if(carsByModel.contains(car) && carsByYear.contains(car)){
+                    cars.add(car);
+                }
+            }
+        }
+        return cars;
+    }
+    public ArrayList<Car> getCarsFilter(CarFilter carFilterStruct){
+        return getCarsFilter(
+            carFilterStruct.getId(),
+            carFilterStruct.getMake(),
+            carFilterStruct.getModel(),
+            carFilterStruct.getYear(),
+            carFilterStruct.isUnion());
+    }
+
 }

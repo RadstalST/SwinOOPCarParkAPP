@@ -11,13 +11,14 @@ public class Menu implements ActionListener {
     private static final String ADD_CAR_SLOT_LABEL = "Add Car Slot";
     private static final String REMOVE_CAR_SLOT_LABEL = "Remove Car Slot";
 
-    private JButton listAllCarSlotBtn = new JButton(LIST_ALL_CAR_SLOT_LABEL);
-    private JButton parkCarBtn = new JButton(PARK_CAR_LABEL);
-    private JButton findCarBtn = new JButton(FIND_CAR_LABEL);
+    // private JButton listAllCarSlotBtn = new JButton(LIST_ALL_CAR_SLOT_LABEL);
+    // private JButton parkCarBtn = new JButton(PARK_CAR_LABEL);
+    // private JButton findCarBtn = new JButton(FIND_CAR_LABEL);
     private JButton addCarBtn = new JButton(ADD_CAR_LABEL);
-    private JButton removeCarBtn = new JButton(REMOVE_CAR_LABEL);
+    // private JButton removeCarBtn = new JButton(REMOVE_CAR_LABEL);
     private JButton addCarSlotBtn = new JButton(ADD_CAR_SLOT_LABEL);
-    private JButton removeCarSlotBtn = new JButton(REMOVE_CAR_SLOT_LABEL);
+    private JButton generateCarsBtn = new JButton("Generate Cars");
+    private JButton generateCarSlotsBtn = new JButton("Generate Car Slots");
 
     private JPanel panel;
     private JFrame popup;
@@ -29,26 +30,17 @@ public class Menu implements ActionListener {
         this.carPark = carPark;
         this.displayPanel = displayPanel;
         this.cars = cars;
-
         panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1, PADDING, PADDING));
         panel.setBackground(Constants.primaryColor);
-
-        panel.add(listAllCarSlotBtn);
-        panel.add(parkCarBtn);
-        panel.add(findCarBtn);
         panel.add(addCarBtn);
-        panel.add(removeCarBtn);
         panel.add(addCarSlotBtn);
-        panel.add(removeCarSlotBtn);
-
-        listAllCarSlotBtn.addActionListener(this);
-        parkCarBtn.addActionListener(this);
-        findCarBtn.addActionListener(this);
+        panel.add(generateCarsBtn);
+        panel.add(generateCarSlotsBtn);
         addCarBtn.addActionListener(this);
-        removeCarBtn.addActionListener(this);
         addCarSlotBtn.addActionListener(this);
-        removeCarSlotBtn.addActionListener(this);
+        generateCarsBtn.addActionListener(this);
+        generateCarSlotsBtn.addActionListener(this);
     }
 
     public JPanel getPanel() {
@@ -58,23 +50,20 @@ public class Menu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Component source = (Component) e.getSource();
 
-       if(source == listAllCarSlotBtn){
-            System.out.println("listAllCarSlotBtn");
-        }else if(source == parkCarBtn){
-            System.out.println("parkCarBtn");
-        }else if(source == findCarBtn){
-            System.out.println("findCarBtn");
-        }else if(source == addCarBtn){
+       if(source == addCarBtn){
             System.out.println("addCarBtn");
             showAddCarPopup();
-        }else if(source == removeCarBtn){
-            System.out.println("removeCarBtn");
         }else if(source == addCarSlotBtn){
             System.out.println("addCarSlotBtn");
             showAddCarSlotPopup();
-        }else if(source == removeCarSlotBtn){
-            System.out.println("removeCarSlotBtn");
-           
+        }else if(source == generateCarsBtn){
+            System.out.println("generateCarsBtn");
+            cars.addAll(Car.generateCar(3));
+            displayPanel.refresh();
+        }else if(source == generateCarSlotsBtn){
+            System.out.println("generateCarSlotsBtn");
+            carPark.getSlots().addAll(ParkingSlot.generateParkingSlot(3));
+            displayPanel.refresh();
         }
 
         

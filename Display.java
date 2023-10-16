@@ -21,6 +21,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.border.EmptyBorder;
 public class Display
 {
     // instance variables - replace the example below with your own
@@ -30,10 +31,12 @@ public class Display
     private int PADDING = 20;
     private ArrayList<Car> cars;
     private CarPark carPark;
-    public Display(CarPark carPark,ArrayList<Car> cars)
+    private CarFilter carFilterStruct;
+
+
+    public Display(CarPark carPark,ArrayList<Car> cars,CarFilter carFilterStruct)
     {
-        // initialise instance variables
-        // verticalLayout 
+        this.carFilterStruct = carFilterStruct;
         this.cars = cars;
         this.carPark = carPark;
         this.refresh();
@@ -57,24 +60,97 @@ public class Display
         // displays all the slots in visitor panel with button
         for (int i = 0; i < carPark.getCapacity(); i++) {
             JPanel slotPanel = new JPanel();
-
+            
             slotPanel.setLayout(new FlowLayout());
 
             JLabel slotLabel = new JLabel(carPark.getSlot(i).getId());
+
+            
+            JLabel slotCarLabel = new JLabel("None");
             JButton slotButton = new JButton("Park Car");
-            slotsPanel.add(slotLabel);
-            slotsPanel.add(slotButton);
+            JButton slotRemoveButton = new JButton("Remove Car");
+            ParkingSlot slot = carPark.getSlot(i);
+            Car parkedCar = slot.getCar();
+
+            if (parkedCar != null) {
+                slotCarLabel.setText(parkedCar.getId());
+            }
+
+            slotPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            slotPanel.add(slotLabel);
+            slotPanel.add(slotCarLabel);
+            slotPanel.add(slotButton);
+            slotPanel.add(slotRemoveButton);
             slotsPanel.add(slotPanel);
+
+            // attach listener to button create a new frame that list all carID and park
+            // button
+            
+            slotButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("parkCarBtn");
+                        JFrame popup = new JFrame("Park Car");
+                        JPanel popupPanel = new JPanel();
+                        popupPanel.setLayout(new GridLayout(0, 1, PADDING, PADDING));
+                        popupPanel.setBackground(Constants.primaryColor);
+                        popupPanel.setBorder(new EmptyBorder(PADDING, PADDING, PADDING, PADDING));
+                        popup.add(popupPanel);
+                        for (Car car : cars) {
+                            JButton carButton = new JButton(car.getId());
+                            popupPanel.add(carButton);
+                            carButton.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        slot.parkCar(car);
+                                        refresh();
+                                        popup.dispose();
+                                    }
+                                });
+                        }
+                        popup.pack();
+                        popup.setVisible(true);
+                    }
+                });
+            slotRemoveButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        slot.removeCar();
+                        refresh();
+                    }
+                });
+
             
         }
-        for(Car car : cars){
+
+        ArrayList<Car> filteredCars = filterCars(carFilterStruct);
+        
+
+        for(Car car : filteredCars){
             JPanel carPanel = new JPanel();
-            carPanel.setLayout(new FlowLayout());
+            carPanel.setLayout(new BoxLayout(carPanel, BoxLayout.Y_AXIS));
+            carPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+            carPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
             JTextArea carText = new JTextArea(car.toString());
-            JButton carButton = new JButton("Delete Car");
+            carText.setAlignmentX(Component.CENTER_ALIGNMENT);
+            carText.setEditable(false);
             carPanel.add(carText);
+
+            JButton carButton = new JButton("Delete Car");
+            carButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             carPanel.add(carButton);
             carsPanel.add(carPanel);
+            // attach listener to button
+            carButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        cars.remove(car);
+                        //remove car from slot
+                        for(ParkingSlot slot : carPark.getParkingSlots()){
+                            if(slot.getCar() == car){
+                                slot.removeCar();
+                            }
+                        }
+                        refresh();
+                    }
+                });
         }
 
 
@@ -84,9 +160,63 @@ public class Display
         carParkingSlotsPane.setLayout(new ScrollPaneLayout());
         carParkingSlotsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         carsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        carsPane.setBorder(BorderFactory.createTitledBorder("Existing Cars"));
+
         
         
         panel.add(carParkingSlotsPane);
         panel.add(carsPane);
     }
+
+    public ArrayList<Car> filterCars(String id, String make, String model, String year, boolean union){
+        ArrayList<Car> filteredCars = new ArrayList<Car>();
+
+
+        if(union){
+            if(id != null){
+                filteredCars.addAll(cars.stream().filter(car -> car.getId().equals(id)).toList());
+            }
+            if(make != null){
+                filteredCars.addAll(cars.stream().filter(car -> car.getMake().equals(make)).toList());
+            }
+            if(model != null){
+                filteredCars.addAll(cars.stream().filter(car -> car.getModel().equals(model)).toList());
+            }
+            if(year != null){
+                filteredCars.addAll(cars.stream().filter(car -> car.getYear().equals(year)).toList());
+            }
+        }else{
+            if(id != null){
+                filteredCars.addAll(filteredCars.stream().filter(car -> car.getId().equals(id)).toList());
+            }
+            if(make != null){
+                 filteredCars.addAll(filteredCars.stream().filter(car -> car.getMake().equals(make)).toList());
+            }
+            if(model != null){
+                 filteredCars.addAll(filteredCars.stream().filter(car -> car.getModel().equals(model)).toList());
+            }
+            if(year != null){
+                 filteredCars.addAll(filteredCars.stream().filter(car -> car.getYear().equals(year)).toList());
+            }
+            
+            
+        }
+        return filteredCars;
+
+    }
+    public ArrayList<Car> filterCars(CarFilter carFilterStruct){
+        ArrayList<Car> filteredCars = new ArrayList<Car>();
+        if(carFilterStruct.isFiltering()){
+            filteredCars = filterCars(
+                carFilterStruct.getId(),
+                carFilterStruct.getMake(),
+                carFilterStruct.getModel(),
+                carFilterStruct.getYear(),
+                carFilterStruct.isUnion());
+        }else{
+            filteredCars = cars;
+        }
+        return filteredCars;
+    }
+    
 }

@@ -142,8 +142,4 @@ public class Menu implements  ActionListener
     
 }
 
-class AddCarFrame extends Jframe{
-    private String carID;
-    private String carMake;
 
-}
