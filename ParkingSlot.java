@@ -47,7 +47,7 @@ public class ParkingSlot
             //random
             parkingSlots.add(new ParkingSlot(
                 "%c%03d".formatted(
-                    (char)(Math.random() * 26 + 'A'),
+                    'G',
                     (int)(Math.random() * 1000)
                 )
                 ));

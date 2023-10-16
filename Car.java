@@ -100,7 +100,7 @@ public class Car
             //randomly
             cars.add(new Car(
                 "%c%04d".formatted(
-                    "G",
+                    'G',
                     (int)(Math.random() * 10000)
                 ),
                 possibleMakes.get((int)(Math.random() * possibleMakes.size())),
