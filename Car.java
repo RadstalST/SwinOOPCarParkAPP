@@ -1,6 +1,11 @@
 
 import java.util.Date;
 import java.util.ArrayList;
+/**
+ * The Car class represents a car object with its attributes such as id, make, model, year, createdTimestamp, and updateTimestamp.
+ * It provides methods to set and get the values of these attributes, as well as a toString method to display the car's information.
+ * The class also includes a method to generate a list of random cars.
+ */
 public class Car
 {
     // instance variables - replace the example below with your own
@@ -22,9 +27,9 @@ public class Car
         this.make = make;
         this.model = model;
         this.year = year;
-        // if(!id.matches("[A-Za-z]{1}[0-9]{4}")){
-        //     throw new IllegalArgumentException("id is [A-Za-z]{1}[0-9]{4}");
-        // }
+        if(!id.matches("[A-Za-z]{1}[0-9]{4}")){
+            throw new IllegalArgumentException("id is [A-Za-z]{1}[0-9]{4}");
+        }
     }
 
     private void updateTimestampHandler(){
@@ -79,12 +84,13 @@ public class Car
     public static ArrayList<Car> generateCar(int n){
         ArrayList<Car> cars = new ArrayList<Car>();
         ArrayList<String> possibleMakes = new ArrayList<String>();
+        ArrayList<String> possibleModels = new ArrayList<String>();
+
         possibleMakes.add("Toyota");
         possibleMakes.add("Honda");
         possibleMakes.add("Nissan");
         possibleMakes.add("Mazda");
         possibleMakes.add("Mitsubishi");
-        ArrayList<String> possibleModels = new ArrayList<String>();
         possibleModels.add("Camry");
         possibleModels.add("Corolla");
         possibleModels.add("Prius");
@@ -94,7 +100,7 @@ public class Car
             //randomly
             cars.add(new Car(
                 "%c%04d".formatted(
-                    (char)((int)(Math.random() * 26) + 65),
+                    "G",
                     (int)(Math.random() * 10000)
                 ),
                 possibleMakes.get((int)(Math.random() * possibleMakes.size())),

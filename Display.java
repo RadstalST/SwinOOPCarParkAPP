@@ -22,6 +22,18 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
+/**
+ * The Display class represents the graphical user interface of the Car Park system.
+ * It displays the parking slots and the list of cars in the car park.
+ * It also provides buttons to park and remove cars from the parking slots.
+ * The class uses Swing components to create the user interface.
+ * 
+ * @param carPark The CarPark object that represents the car park.
+ * @param cars The ArrayList of Car objects that represents the cars in the car park.
+ * @param carFilterStruct The CarFilter object that represents the filter for the list of cars.
+ * 
+ * @return A JPanel object that represents the graphical user interface of the Car Park system.
+ */
 public class Display
 {
     // instance variables - replace the example below with your own
