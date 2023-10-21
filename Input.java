@@ -19,14 +19,16 @@ public class Input
     JPanel carFilterPanel = new JPanel();
     JPanel parkingFilterPanel = new JPanel();
     CarFilter carFilterStruct;
+    ParkingSlotFilter parkingSlotFilterStruct;
 
     private int PADDING = 20;
-    public Input(Display displayPanel,ArrayList<Car> cars,CarFilter carFilterStruct)
+    public Input(Display displayPanel,ArrayList<Car> cars,CarFilter carFilterStruct,ParkingSlotFilter parkingSlotFilterStruct)
     {
         // initialise instance variables
         // verticalLayout 
         this.displayPanel = displayPanel;
         this.carFilterStruct = carFilterStruct;
+        this.parkingSlotFilterStruct = parkingSlotFilterStruct;
         panel.setLayout(new GridLayout(0, 2, PADDING, PADDING));
         panel.setBackground(Constants.primaryColor);
         createCarsFilterPane();
@@ -67,16 +69,24 @@ public class Input
         parkingFilterPanel.add(slotTextField);
 
         JButton filterBtn = new JButton("Filter");
-        JButton resetBtn = new JButton("Reset");
+        JButton slotResetBtn = new JButton("Reset");
 
         parkingFilterPanel.add(filterBtn);
-        parkingFilterPanel.add(resetBtn);
+        parkingFilterPanel.add(slotResetBtn);
 
-        resetBtn.addActionListener(e -> {
+        slotResetBtn.addActionListener(e -> {
                 System.out.println("resetBtn");
                 slotTextField.setText("");
-            });
+                parkingSlotFilterStruct.clear();
+                displayPanel.refresh();
 
+            });
+        filterBtn.addActionListener(e -> {
+                System.out.println("filterBtn");
+                parkingSlotFilterStruct.clear(); // clear the filter
+                parkingSlotFilterStruct.setId(slotTextField.getText());
+                displayPanel.refresh();
+            });
         
         return parkingFilterPanel;
 
@@ -97,12 +107,6 @@ public class Input
         idList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         idList.setLayoutOrientation(JList.VERTICAL);
         idList.setVisibleRowCount(-1);
-        // JScrollPane idListScroller = new JScrollPane(idList);
-        // idListScroller.setPreferredSize(new Dimension(250, 80));
-        // carFilterPanel.add(idLabel);
-        // carFilterPanel.add(idListScroller);
-
-
 
         JLabel makeLabel = new JLabel("Make");
         JTextField makeTextField = new JTextField();

@@ -3,20 +3,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 public class Menu implements ActionListener {
-    private static final String LIST_ALL_CAR_SLOT_LABEL = "List All Car Slot";
-    private static final String PARK_CAR_LABEL = "Park Car";
-    private static final String FIND_CAR_LABEL = "Find Car";
-    private static final String ADD_CAR_LABEL = "Add Car";
-    private static final String REMOVE_CAR_LABEL = "Remove Car";
-    private static final String ADD_CAR_SLOT_LABEL = "Add Car Slot";
-    private static final String REMOVE_CAR_SLOT_LABEL = "Remove Car Slot";
+    // private static final String LIST_ALL_CAR_SLOT_LABEL = "List All Car Slot";
+    // private static final String PARK_CAR_LABEL = "Park Car";
+    // private static final String FIND_CAR_LABEL = "Find Car";
+    // private static final String ADD_CAR_LABEL = "Add Car";
+    // private static final String REMOVE_CAR_LABEL = "Remove Car";
+    // private static final String ADD_CAR_SLOT_LABEL = "Add Car Slot";
+    // private static final String REMOVE_CAR_SLOT_LABEL = "Remove Car Slot";
 
-    // private JButton listAllCarSlotBtn = new JButton(LIST_ALL_CAR_SLOT_LABEL);
-    // private JButton parkCarBtn = new JButton(PARK_CAR_LABEL);
-    // private JButton findCarBtn = new JButton(FIND_CAR_LABEL);
-    private JButton addCarBtn = new JButton(ADD_CAR_LABEL);
-    // private JButton removeCarBtn = new JButton(REMOVE_CAR_LABEL);
-    private JButton addCarSlotBtn = new JButton(ADD_CAR_SLOT_LABEL);
+    private JButton addCarBtn = new JButton("Add Car");
+    private JButton addCarSlotBtn = new JButton("Add Car Slot");
     private JButton generateCarsBtn = new JButton("Generate Cars");
     private JButton generateCarSlotsBtn = new JButton("Generate Car Slots");
 

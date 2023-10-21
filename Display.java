@@ -44,11 +44,12 @@ public class Display
     private ArrayList<Car> cars;
     private CarPark carPark;
     private CarFilter carFilterStruct;
+    private ParkingSlotFilter parkingSlotFilterStruct;
 
-
-    public Display(CarPark carPark,ArrayList<Car> cars,CarFilter carFilterStruct)
+    public Display(CarPark carPark,ArrayList<Car> cars,CarFilter carFilterStruct,ParkingSlotFilter parkingSlotFilterStruct)
     {
         this.carFilterStruct = carFilterStruct;
+        this.parkingSlotFilterStruct = parkingSlotFilterStruct;
         this.cars = cars;
         this.carPark = carPark;
         this.refresh();
@@ -69,21 +70,26 @@ public class Display
         JPanel carsPanel = new JPanel();
         carsPanel.setLayout(new BoxLayout(carsPanel, BoxLayout.Y_AXIS));
 
+
+    
         // displays all the slots in visitor panel with button
         for (int i = 0; i < carPark.getCapacity(); i++) {
+            ParkingSlot slot = carPark.getSlot(i);
+            String slotId = slot.getId();
+            Car parkedCar = slot.getCar();
+            if(parkingSlotFilterStruct.isFiltering()){
+                if(parkingSlotFilterStruct.getId() != null && !parkingSlotFilterStruct.getId().equals(slotId)){
+                    continue;
+                }
+            }
+
             JPanel slotPanel = new JPanel();
-            
             slotPanel.setLayout(new FlowLayout());
-
-            JLabel slotLabel = new JLabel(carPark.getSlot(i).getId());
-
-            
+            JLabel slotLabel = new JLabel(slotId);
             JLabel slotCarLabel = new JLabel("None");
             JButton slotButton = new JButton("Park Car");
             JButton slotRemoveButton = new JButton("Remove Car");
-            ParkingSlot slot = carPark.getSlot(i);
-            Car parkedCar = slot.getCar();
-
+            
             if (parkedCar != null) {
                 slotCarLabel.setText(parkedCar.getId());
             }
@@ -168,11 +174,11 @@ public class Display
 
         JScrollPane carParkingSlotsPane = new JScrollPane(slotsPanel);
         JScrollPane carsPane = new JScrollPane(carsPanel);
-        carParkingSlotsPane.setBorder(BorderFactory.createTitledBorder("Car Parking Slots"));
+        carParkingSlotsPane.setBorder(BorderFactory.createTitledBorder("Car Parking Slots (supports sideways parking)"));
         carParkingSlotsPane.setLayout(new ScrollPaneLayout());
         carParkingSlotsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         carsPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        carsPane.setBorder(BorderFactory.createTitledBorder("Existing Cars"));
+        carsPane.setBorder(BorderFactory.createTitledBorder("Existing Cars in the system"));
 
         
         

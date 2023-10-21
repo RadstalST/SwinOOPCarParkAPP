@@ -16,8 +16,16 @@ public class ParkingSlot
             throw new IllegalArgumentException("id is [A-Za-z]{1}[0-9]{3}");
         }
     }
+    public ParkingSlot(){
+        this.id = "";
+        createdTimestamp = new Date();
+        updateTimestamp = new Date();
+    }
     public String getId(){
         return id;
+    }
+    public void setId(String id){
+        this.id = id.toUpperCase();
     }
     public void parkCar(Car car){
         updateTimestampHandler();

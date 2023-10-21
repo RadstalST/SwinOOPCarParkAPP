@@ -27,15 +27,16 @@ public class Application
     static final int PADDING = 10; // padding in px
     private ArrayList<Car> cars = new ArrayList<Car>();
     private CarFilter carFilterStruct = new CarFilter(); // to pass to input panel
-
+    private ParkingSlotFilter parkingSlotFilterStruct = new ParkingSlotFilter(); // to pass to input panel
     private CarPark carPark = new CarPark();
-    private Display displayPanel = new Display(carPark,cars,carFilterStruct);
+    private Display displayPanel = new Display(carPark,cars,carFilterStruct,parkingSlotFilterStruct);
     private Menu menuPanel = new Menu(carPark,displayPanel,cars);
-    private Input inputPanel = new Input(displayPanel,cars,carFilterStruct);
+    private Input inputPanel = new Input(displayPanel,cars,carFilterStruct,parkingSlotFilterStruct);
 
     public Application()
     {
         carFilterStruct.clear();
+        parkingSlotFilterStruct.clear();
         JFrame frame = new JFrame("Red Alert!");
         JPanel contentPane = new JPanel(new GridBagLayout());
         GridBagConstraints cRight = new GridBagConstraints();

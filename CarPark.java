@@ -108,5 +108,13 @@ public class CarPark
             carFilterStruct.getYear(),
             carFilterStruct.isUnion());
     }
+    public static ArrayList<ParkingSlot> getParkingSlotsById( ArrayList<ParkingSlot> parkingSlots,String id){
+        for(ParkingSlot parkingSlot : parkingSlots){
+            if(parkingSlot.getId().toLowerCase() == id.toLowerCase()){
+                parkingSlots.add(parkingSlot);
+            }
+        }
+        return parkingSlots;
+    }
 
 }
