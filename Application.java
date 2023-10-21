@@ -1,9 +1,12 @@
-
 /**
- * Write a description of class Application here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * 
+ * The Application class is the main class that initializes the Car Park application.
+ * It creates an instance of the Display, Menu, and Input panels, and adds them to the main frame.
+ * The Display panel shows the current state of the Car Park, the Menu panel provides options to interact with the Car Park,
+ * and the Input panel allows the user to add new cars to the Car Park.
+ * The class also sets up the layout of the panels using GridBagLayout and sets the size of the main frame.
+ * @author Suchat Tangjarukij (103511058)
+ * @version 1.0.0
  */
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +24,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 
 import java.util.ArrayList;
+
 
 public class Application
 {   

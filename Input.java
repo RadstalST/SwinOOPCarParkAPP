@@ -1,16 +1,17 @@
 
 /**
- * Write a description of class Menu here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * This class represents the Input panel of the CarPark application. 
+ * It contains methods to create filter panels for cars and parking slots, 
+ * and provides functionality to filter the display based on user input.
+ * @author Suchat Tangjarukij (103511058)
+ * @version 1.0.0
  */
-;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
+
 public class Input
 {
     // instance variables - replace the example below with your own
@@ -22,6 +23,15 @@ public class Input
     ParkingSlotFilter parkingSlotFilterStruct;
 
     private int PADDING = 20;
+    /**
+     * 
+     * @param displayPanel The Display panel to be filtered.
+     * @param cars The list of cars to be filtered.
+     * @param carFilterStruct The CarFilter object to store filter parameters for cars.
+     * @param parkingSlotFilterStruct The ParkingSlotFilter object to store filter parameters for parking slots.
+     * 
+     * @return A JPanel object representing the Input panel.
+     */
     public Input(Display displayPanel,ArrayList<Car> cars,CarFilter carFilterStruct,ParkingSlotFilter parkingSlotFilterStruct)
     {
         // initialise instance variables

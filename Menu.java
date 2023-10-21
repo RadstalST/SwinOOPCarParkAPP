@@ -13,8 +13,8 @@ public class Menu implements ActionListener {
 
     private JButton addCarBtn = new JButton("Add Car");
     private JButton addCarSlotBtn = new JButton("Add Car Slot");
-    private JButton generateCarsBtn = new JButton("Generate Cars");
-    private JButton generateCarSlotsBtn = new JButton("Generate Car Slots");
+    private JButton generateCarsBtn = new JButton("DEBUG: Generate Cars");
+    private JButton generateCarSlotsBtn = new JButton("DEBUG: Generate Car Slots");
 
     private JPanel panel;
     private JFrame popup;

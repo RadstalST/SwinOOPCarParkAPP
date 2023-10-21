@@ -1,39 +1,21 @@
-
-/**
- * Write a description of class Menu here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneLayout;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.ArrayList;
-import javax.swing.border.EmptyBorder;
 /**
  * The Display class represents the graphical user interface of the Car Park system.
  * It displays the parking slots and the list of cars in the car park.
  * It also provides buttons to park and remove cars from the parking slots.
  * The class uses Swing components to create the user interface.
- * 
- * @param carPark The CarPark object that represents the car park.
- * @param cars The ArrayList of Car objects that represents the cars in the car park.
- * @param carFilterStruct The CarFilter object that represents the filter for the list of cars.
- * 
- * @return A JPanel object that represents the graphical user interface of the Car Park system.
+ *
+ * @author Suchat Tangjarukij
+ * @version 1.0.0
  */
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import javax.swing.border.EmptyBorder;
+
+
+
 public class Display
 {
     // instance variables - replace the example below with your own
@@ -45,7 +27,13 @@ public class Display
     private CarPark carPark;
     private CarFilter carFilterStruct;
     private ParkingSlotFilter parkingSlotFilterStruct;
-
+    /**
+    * @param carPark The CarPark object that represents the car park.
+    * @param cars The ArrayList of Car objects that represents the cars in the car park.
+    * @param carFilterStruct The CarFilter object that represents the filter for the list of cars.
+    * 
+    * @return A JPanel object that represents the graphical user interface of the Car Park system.
+    */
     public Display(CarPark carPark,ArrayList<Car> cars,CarFilter carFilterStruct,ParkingSlotFilter parkingSlotFilterStruct)
     {
         this.carFilterStruct = carFilterStruct;
